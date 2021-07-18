@@ -2,6 +2,31 @@
 
 [![Build Status](https://github.com/adafruit/tinyuf2/workflows/Build/badge.svg)](https://github.com/adafruit/tinyuf2/actions)[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
+### Notes:
+
+```
+git clone --recurse-submodules https://github.com/0xcb-dev/tinyuf2
+```
+
+To build this for a specific board, we need to change current directory to its port folder
+
+```
+cd ports/stm32f4
+```
+
+Then compile with `make BOARD=[board_name] all`, for example
+
+```
+make BOARD=stm32f411ce_blackpill all
+```
+
+Flashing
+
+```
+st-flash write _build/stm32f411ce_blackpill/tinyuf2-stm32f411ce_blackpill.bin 0x08000000
+```
+
+
 This repo is cross-platform UF2 Bootloader projects for MCUs based on [TinyUSB](https://github.com/hathach/tinyusb)
 
 ```

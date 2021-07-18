@@ -12,6 +12,7 @@ include ../make.mk
 
 # Port Compiler Flags
 CFLAGS += \
+  -Wno-error \
   -flto \
   -mthumb \
   -mabi=aapcs \
