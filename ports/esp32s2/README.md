@@ -1,4 +1,4 @@
-# UF2 Bootloader **Application** for ESP32-S2
+# TinyUF2 "Bootloader Application" for ESP32-S2
 
 The project is composed of customizing the 2nd stage bootloader from IDF and UF2 factory application as 3rd stage bootloader. **Note**: since IDF is actively developed and change very often, it is included as submodule at `lib/esp-idf`, please run export script there to have your environment setup correctly.
 
@@ -7,10 +7,13 @@ Following boards are supported:
 - [Adafruit Magtag 2.9" E-Ink WiFi Display](https://www.adafruit.com/product/4800)
 - [Adafruit Metro ESP32-S2](https://www.adafruit.com/product/4775)
 - [Espressif Kaluga 1](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-esp32-s2-kaluga-1-kit.html)
+- [Espressif HMI 1](https://github.com/espressif/esp-dev-kits/tree/master/esp32-s2-hmi-devkit-1)
 - [Espressif Saola 1R (WROVER) and 1M (WROOM)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-saola-1-v1.2.html)
 - [Gravitech Cucumber RIS ESP32-S2 w/Sensors ](https://www.gravitech.us/curisdebowis.html)
 - [LILYGO® TTGO T8 ESP32-S2 V1.1 ST7789 ](http://www.lilygo.cn/prod_view.aspx?TypeId=50033&Id=1321&FId=t3:50033:3)
+- [LOLIN Wemos® S2 Pico](https://www.wemos.cc/en/latest/s2/s2_pico.html)
 - [microDev microS2](https://circuitpython.org/board/microdev_micro_s2)
+- [Morpheans MorphESP-240](https://github.com/ccadic/ESP32-S2-DevBoardTFT) or  [MorphESP CrowdSupply](https://www.crowdsupply.com/morpheans/morphesp-240)
 - [Olimex ESP32S2 DevKit Lipo vB1 (WROVER and WROOM)](https://www.olimex.com/Products/IoT/ESP32-S2/ESP32-S2-DevKit-Lipo/open-source-hardware)
 - [Unexpected Maker FeatherS2](https://feathers2.io)
 
@@ -68,9 +71,10 @@ There are a few ways to enter UF2 mode:
 
 To create your own UF2 file, simply use the [Python conversion script](https://github.com/Microsoft/uf2/blob/master/utils/uf2conv.py) on a .bin file, specifying the family as **0xbfdd4eee**. Note you must specify application address of 0x00 with the -b switch, the bootloader will use it as offset to write to ota partition.
 
-To create a UF2 image from a .bin file:
+To create a UF2 image from a .bin file using family option `ESP32S2` or its magic number as followss:
 
 ```
+uf2conv.py firmware.bin -c -b 0x00 -f ESP32S2
 uf2conv.py firmware.bin -c -b 0x00 -f 0xbfdd4eee
 ```
 
@@ -94,9 +98,7 @@ NOTE: uf2 bootloader, customized 2nd bootloader and partition table can be overw
 
 ## Partition
 
-The following partition isn't final yet, current build without optimization and lots of debug is around 100 KB. Since IDF requires application type must be 64KB aligned, uf2 is best with size of 64KB, we will try to see if we could fit  https://github.com/microsoft/uf2/blob/master/hf2.md and https://github.com/microsoft/uf2/blob/master/cf2.md within 64KB.
-
-UF2 only uses `ota_0` user application can change partition table (e.g increase ota_0 size, re-arrange layout/address) but should not overwrite the uf2 part. If an complete re-design partition is required, `uf2_bootloader.bin` and the `modified 2nd_stage_bootloader.bin` should be included as part of user combined binary for flash command.
+Following is typical partition for 4MB flash, check out the `partition-xMB.csv` for details.
 
 ```
 # Name,   Type, SubType, Offset,  Size, Flags

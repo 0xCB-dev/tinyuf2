@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef UNEXPECTEDMAKER_FEATHERS2_NEO_H_
-#define UNEXPECTEDMAKER_FEATHERS2_NEO_H_
+#ifndef ESPRESSIF_HMI_1_H_
+#define ESPRESSIF_HMI_1_H_
 
 //--------------------------------------------------------------------+
 // Button
@@ -36,41 +36,54 @@
 
 // GPIO that implement 1-bit memory with RC components which hold the
 // pin value long enough for double reset detection.
-// #define PIN_DOUBLE_RESET_RC
+// #define PIN_DOUBLE_RESET_RC   16
 
 //--------------------------------------------------------------------+
 // LED
 //--------------------------------------------------------------------+
 
 // GPIO connected to Neopixel data
-#define NEOPIXEL_PIN          40
-
-#define NEOPIXEL_POWER_PIN    39
-#define NEOPIXEL_POWER_STATE  1
+#define NEOPIXEL_PIN          21
 
 // Brightness percentage from 1 to 255
-#define NEOPIXEL_BRIGHTNESS   0x64
+#define NEOPIXEL_BRIGHTNESS   0x30
 
 // Number of neopixels
 #define NEOPIXEL_NUMBER       1
 
-// LED for indicator and writing flash
-// If not defined neopixel will be use for flash writing instead
-#define LED_PIN               13
-#define LED_STATE_ON          1
+//Peripheral power is enabled through I2C connected TCA9554
+#define I2C_MASTER_SCL_IO           39
+#define I2C_MASTER_SDA_IO           40
+#define I2C_MASTER_NUM              0
+#define I2C_MASTER_FREQ_HZ          400000
+#define I2C_MASTER_TX_BUF_DISABLE   0
+#define I2C_MASTER_RX_BUF_DISABLE   0
+#define I2C_MASTER_TIMEOUT_MS       1000
+#define I2C_WAIT                    40      //Timing (in microseconds) for I2C
+
+#define TCA9554_ADDR                    0x20
+#define TCA9554_INPUT_PORT_REG          0x00
+#define TCA9554_OUTPUT_PORT_REG         0x01
+#define TCA9554_POLARITY_INVERSION_REG  0x02
+#define TCA9554_CONFIGURATION_REG       0x03
+#define TCA9554_DEFAULT_CONFIG          0b10100000            
+#define TCA9554_DEFAULT_VALUE           0b11100000             //Enable peripheral power and ws2812 data in
+#define TCA9554_PERI_POWER_ON_VALUE     0b11100000             //Enable peripheral power and ws2812 data in
+#define TCA9554_PERI_POWER_OFF_VALUE    0b11110000             //Disable Peripheral power
 
 //--------------------------------------------------------------------+
 // USB UF2
 //--------------------------------------------------------------------+
 
 #define USB_VID           0x303A
-#define USB_PID           0x80B5
-#define USB_MANUFACTURER  "Unexpected Maker"
-#define USB_PRODUCT       "FeatherS2 Neo"
+#define USB_PID           0x7000
+#define USB_MANUFACTURER  "Espressif"
+#define USB_PRODUCT       "HMI 1"
 
 #define UF2_PRODUCT_NAME  USB_MANUFACTURER " " USB_PRODUCT
-#define UF2_BOARD_ID      "ESP32S2FN4R2-FeatherS2Neo-01"
-#define UF2_VOLUME_LABEL  "FS2NEOBOOT"
-#define UF2_INDEX_URL     "https://circuitpython.org/board/unexpectedmaker_featherS2_neo/"
+#define UF2_BOARD_ID      "ESP32S2-HMI-v1.1"
+#define UF2_VOLUME_LABEL  "ESPHMI1BOOT"
+#define UF2_INDEX_URL     "https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-esp32-s2-kaluga-1-kit.html"
+
 
 #endif

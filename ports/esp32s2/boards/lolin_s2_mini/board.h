@@ -22,8 +22,7 @@
  * THE SOFTWARE.
  */
 
-#ifndef UNEXPECTEDMAKER_FEATHERS2_NEO_H_
-#define UNEXPECTEDMAKER_FEATHERS2_NEO_H_
+#pragma once
 
 //--------------------------------------------------------------------+
 // Button
@@ -42,35 +41,33 @@
 // LED
 //--------------------------------------------------------------------+
 
-// GPIO connected to Neopixel data
-#define NEOPIXEL_PIN          40
-
-#define NEOPIXEL_POWER_PIN    39
-#define NEOPIXEL_POWER_STATE  1
-
-// Brightness percentage from 1 to 255
-#define NEOPIXEL_BRIGHTNESS   0x64
-
-// Number of neopixels
-#define NEOPIXEL_NUMBER       1
-
 // LED for indicator and writing flash
-// If not defined neopixel will be use for flash writing instead
-#define LED_PIN               13
+#define LED_PIN               15
 #define LED_STATE_ON          1
+
+// Uncomment & wire-up NeoPixel to board for testing
+// // GPIOs connected to NeoPixel data & power
+// #define NEOPIXEL_PIN          01
+// 
+// #define NEOPIXEL_POWER_PIN    02
+// #define NEOPIXEL_POWER_STATE  1
+// 
+// // Brightness percentage from 1 to 255
+// #define NEOPIXEL_BRIGHTNESS   0x64
+// 
+// // Number of neopixels
+// #define NEOPIXEL_NUMBER       1
 
 //--------------------------------------------------------------------+
 // USB UF2
 //--------------------------------------------------------------------+
 
 #define USB_VID           0x303A
-#define USB_PID           0x80B5
-#define USB_MANUFACTURER  "Unexpected Maker"
-#define USB_PRODUCT       "FeatherS2 Neo"
+#define USB_PID           0x80C4
+#define USB_MANUFACTURER  "Lolin"
+#define USB_PRODUCT       "S2 Mini"
 
 #define UF2_PRODUCT_NAME  USB_MANUFACTURER " " USB_PRODUCT
-#define UF2_BOARD_ID      "ESP32S2FN4R2-FeatherS2Neo-01"
-#define UF2_VOLUME_LABEL  "FS2NEOBOOT"
-#define UF2_INDEX_URL     "https://circuitpython.org/board/unexpectedmaker_featherS2_neo/"
-
-#endif
+#define UF2_BOARD_ID      "ESP32S2FN4R2-S2Mini-1-0-0"
+#define UF2_VOLUME_LABEL  "S2MINIBOOT"
+#define UF2_INDEX_URL     "https://circuitpython.org/board/lolin_s2_mini/"

@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2020 Ha Thach (tinyusb.org) for Adafruit Industries
@@ -21,9 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-#ifndef UNEXPECTEDMAKER_FEATHERS2_NEO_H_
-#define UNEXPECTEDMAKER_FEATHERS2_NEO_H_
+#pragma once
 
 //--------------------------------------------------------------------+
 // Button
@@ -32,45 +30,57 @@
 // Enter UF2 mode if GPIO is pressed while 2nd stage bootloader indicator
 // is on e.g RGB = Purple. If it is GPIO0, user should not hold this while
 // reset since that will instead run the 1st stage ROM bootloader
-#define PIN_BUTTON_UF2        0
-
-// GPIO that implement 1-bit memory with RC components which hold the
-// pin value long enough for double reset detection.
-// #define PIN_DOUBLE_RESET_RC
+#define PIN_BUTTON_UF2       0
 
 //--------------------------------------------------------------------+
 // LED
 //--------------------------------------------------------------------+
 
 // GPIO connected to Neopixel data
-#define NEOPIXEL_PIN          40
-
-#define NEOPIXEL_POWER_PIN    39
-#define NEOPIXEL_POWER_STATE  1
+// Note: Need to insert Jumper (default is Off) to control neopixel
+// On Kaluga this pin is also connected to Camera D3
+#define NEOPIXEL_PIN          16
 
 // Brightness percentage from 1 to 255
-#define NEOPIXEL_BRIGHTNESS   0x64
+#define NEOPIXEL_BRIGHTNESS   0x10
 
 // Number of neopixels
 #define NEOPIXEL_NUMBER       1
 
-// LED for indicator and writing flash
-// If not defined neopixel will be use for flash writing instead
-#define LED_PIN               13
-#define LED_STATE_ON          1
+//--------------------------------------------------------------------+
+// TFT Display ST7789
+//--------------------------------------------------------------------+
+// #undef  CONFIG_LCD_TYPE_AUTO
+#define CONFIG_LCD_TYPE_ST7789V
 
+#define DISPLAY_PIN_MISO    -1              //No MISO connected to display.
+#define DISPLAY_PIN_MOSI    11
+#define DISPLAY_PIN_SCK     12
+#define DISPLAY_PIN_CS      10
+#define DISPLAY_PIN_DC      14
+#define DISPLAY_PIN_RST     9
+#define DISPLAY_PIN_BL      21 // TODO There is no backlight control on this board. Unused pin for now. Will have to PR tinyuf2      
+#define DISPLAY_BL_ON       1 // GPIO state to enable back light
+
+#define DISPLAY_WIDTH       240
+#define DISPLAY_HEIGHT      240
+#define DISPLAY_MADCTL      (TFT_MADCTL_MV | TFT_MADCTL_RGB)
+
+#define DISPLAY_VSCSAD      0
+#define DISPLAY_COL_OFFSET  0
+#define DISPLAY_ROW_OFFSET  0
+
+#define DISPLAY_TITLE        "MORPHESP240"
 //--------------------------------------------------------------------+
 // USB UF2
 //--------------------------------------------------------------------+
 
-#define USB_VID           0x303A
-#define USB_PID           0x80B5
-#define USB_MANUFACTURER  "Unexpected Maker"
-#define USB_PRODUCT       "FeatherS2 Neo"
+#define USB_VID           0x303A            // Espressif VID
+#define USB_PID           0x80B6            // Espressif assigned PID
+#define USB_MANUFACTURER  "MORPHEANS"
+#define USB_PRODUCT       "MORPHESP-240"
 
 #define UF2_PRODUCT_NAME  USB_MANUFACTURER " " USB_PRODUCT
-#define UF2_BOARD_ID      "ESP32S2FN4R2-FeatherS2Neo-01"
-#define UF2_VOLUME_LABEL  "FS2NEOBOOT"
-#define UF2_INDEX_URL     "https://circuitpython.org/board/unexpectedmaker_featherS2_neo/"
-
-#endif
+#define UF2_BOARD_ID      "ESP32S2-MORPHESP240-v1.0"
+#define UF2_VOLUME_LABEL  "MORPHBOOT"
+#define UF2_INDEX_URL     "https://github.com/ccadic/ESP32-S2-DevBoardTFT"
